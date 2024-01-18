@@ -25,4 +25,58 @@ function initMap() {
     });
 
     console.log("Marker : ",marker);
+
+    var bounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(16.74, 96.04),
+        new google.maps.LatLng(16.77,96.07)
+    );
+    map.fitBounds(bounds);
+    
+
+     // Create a DrawingManager and set its options
+     var drawingManager = new google.maps.drawing.DrawingManager({
+        drawingMode: google.maps.drawing.OverlayType.MARKER,
+        drawingControl: true,
+        drawingControlOptions: {
+            position: google.maps.ControlPosition.TOP_CENTER,
+            drawingModes: ['marker', 'polygon', 'polyline']
+        },
+        markerOptions: {
+            icon: 'https://maps.google.com/mapfiles/ms/micons/blue.png'
+        },
+        polygonOptions: {
+            fillColor: '#2196F3',
+            fillOpacity: 0.5,
+            strokeWeight: 2,
+            clickable: true,
+            editable: true
+        },
+        polylineOptions: {
+            strokeColor: '#2196F3',
+            strokeWeight: 2,
+            clickable: true,
+            editable: true
+        }
+    });
+
+    drawingManager.setMap(map);
+
+    console.log("Drawing Manager : ",drawingManager);
+
+    // Event listener for when an overlay is completed
+    google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
+        if (event.type == google.maps.drawing.OverlayType.MARKER) {
+            // Handle marker
+            var marker = event.overlay;
+            console.log("Marker : ",marker);
+        } else if (event.type == google.maps.drawing.OverlayType.POLYGON) {
+            // Handle polygon
+            var polygon = event.overlay;
+            console.log("Polygon : ",polygon);
+        } else if (event.type == google.maps.drawing.OverlayType.POLYLINE) {
+            // Handle polyline
+            var polyline = event.overlay;
+            console.log("polyline : ",polygonOptions);
+        }
+    });
 }
