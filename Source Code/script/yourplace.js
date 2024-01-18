@@ -21,6 +21,7 @@ function initMap(){
             };
             console.log("CurrentLocation : ",currentLocation);
             map.setCenter(currentLocation);
+            map.setZoom(15,{animate:true})
             
             //set marker
             var marker=new google.maps.Marker({
@@ -56,7 +57,3 @@ function initMap(){
     
     }
 }
-
-//handle Error
-function handleError(browserHasGeolocation,position){
-    }
